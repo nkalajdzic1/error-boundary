@@ -1,3 +1,13 @@
+import { ThemeProvider } from "styled-components";
+
+import AppRoutes from "routes";
+import { theme, GlobalStyle } from "lib/styles";
+
 export const App = () => {
-  return <div className="App">Application</div>;
+  return (
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <AppRoutes />
+    </ThemeProvider>
+  );
 };

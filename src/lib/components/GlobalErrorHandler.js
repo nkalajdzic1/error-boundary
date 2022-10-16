@@ -1,6 +1,5 @@
-import { useCallback, useEffect, useMemo, Component } from "react";
+import { useCallback, useEffect, Component } from "react";
 import { useNavigate } from "react-router";
-import { If } from "./If";
 
 // this handler will catch all errors during render time of the UI
 export class GlobalErrorHandlerWrapper extends Component {
@@ -22,10 +21,6 @@ export class GlobalErrorHandlerWrapper extends Component {
 
 export const GlobalErrorHandler = ({ children }) => {
   const navigate = useNavigate();
-  const showErrors = useMemo(
-    () => process.env.REACT_APP_SHOW_ERRORS === "true",
-    []
-  );
 
   const errorHandler = useCallback(
     (_msg, _url, _lineNo, _columnNo, error) => {
@@ -33,21 +28,21 @@ export const GlobalErrorHandler = ({ children }) => {
       if (!error) return;
 
       // route to error page when the error occurred
-      if (!showErrors) navigate("/404");
+      navigate("/404");
 
       return true;
     },
-    [navigate, showErrors]
+    [navigate]
   );
 
   const unhandledErrorRejectionHandler = useCallback(
     (_error) => {
       // route to error page when the error occurred
-      if (!showErrors) navigate("/404");
+      navigate("/404");
 
       return true;
     },
-    [navigate, showErrors]
+    [navigate]
   );
 
   useEffect(() => {
@@ -61,18 +56,13 @@ export const GlobalErrorHandler = ({ children }) => {
   }, [errorHandler, unhandledErrorRejectionHandler]);
 
   return (
-    <>
-      <If predicate={showErrors}>{children}</If>
-      <If predicate={!showErrors}>
-        <GlobalErrorHandlerWrapper
-          routeToErrorPage={() => {
-            navigate("/404");
-            document.location.reload();
-          }}
-        >
-          {children}
-        </GlobalErrorHandlerWrapper>
-      </If>
-    </>
+    <GlobalErrorHandlerWrapper
+      routeToErrorPage={() => {
+        navigate("/404");
+        document.location.reload();
+      }}
+    >
+      {children}
+    </GlobalErrorHandlerWrapper>
   );
 };

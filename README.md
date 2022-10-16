@@ -1,5 +1,8 @@
 # React error boundary example
 
+The given error boundary given here as an example catches all type of exceptions.
+It is an extension of the integrated react error boundary.
+
 ## Setup
 
 1. run 'npm install' in the root of the project directory

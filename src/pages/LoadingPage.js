@@ -1,7 +1,7 @@
 import { Layout } from "lib/components";
 
 export const LoadingPage = () => {
-  return <Layout>LoadingPage</Layout>;
+  return <Layout>Loading...</Layout>;
 };
 
 export default LoadingPage;

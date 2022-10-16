@@ -1,5 +1,5 @@
 export const ROUTE_PATHS = {
   HOME: "/",
-  ABOUT: "about",
+  ABOUT: "/about",
   NOT_FOUND: "*",
 };

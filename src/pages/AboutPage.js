@@ -1,7 +1,7 @@
 import { Layout } from "lib/components";
 
 export const AboutPage = () => {
-  return <Layout>AboutPage</Layout>;
+  return <Layout>About Page</Layout>;
 };
 
 export default AboutPage;

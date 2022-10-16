@@ -1,10 +1,9 @@
 import { lazy, Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-
-import { ROUTE_PATHS } from "lib/constants";
+import { Route, Routes } from "react-router-dom";
 
 /* don't lazy load the loading page, it will be needed immediately as a fallback for the rest of the pages */
 import { LoadingPage } from "pages";
+import { ROUTE_PATHS } from "lib/constants";
 
 const HomePage = lazy(() => import("pages/HomePage"));
 const AboutPage = lazy(() => import("pages/AboutPage"));
@@ -16,7 +15,7 @@ const ROUTES = {
     exact: true,
     element: <HomePage />,
   },
-  RECURRING_TASKS: {
+  ABOUT: {
     path: ROUTE_PATHS.ABOUT,
     exact: true,
     element: <AboutPage />,
@@ -33,13 +32,11 @@ const routesArr = Object.values(ROUTES);
 const AppRoutes = () => {
   return (
     <Suspense fallback={<LoadingPage />}>
-      <Router>
-        <Routes>
-          {routesArr.map((x, i) => (
-            <Route key={`route-${i}`} {...x} />
-          ))}
-        </Routes>
-      </Router>
+      <Routes>
+        {routesArr.map((x, i) => (
+          <Route key={`route-${i}`} {...x} />
+        ))}
+      </Routes>
     </Suspense>
   );
 };
